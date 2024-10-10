@@ -46,26 +46,9 @@ public class OrderItemServiceImplementation implements OrderItemService {
     @Override
     public OrderItem createOrderItem(OrderItemRequest request) {
         OrderItem orderItem = new OrderItem();
+        Category category = request.getCategory();
+        Product product = request.getProduct();
 
-        // Create and set the Category object
-        Category category = new Category();
-        category.setName(request.getCategory().getName());
-        category.setCategoryId(request.getCategory().getCategoryId());
-        category.setDescription(request.getCategory().getDescription());
-        category.setCreatedAt(request.getOrderItem().getCreatedAt());
-
-        // Create and set the Product object
-        Product product = new Product();
-        product.setProductId(request.getProduct().getProductId());
-        product.setCreatedAt(request.getProduct().getCreatedAt());
-        product.setPrice(request.getProduct().getPrice());
-        product.setCategory(category);
-        product.setName(request.getProduct().getName());
-        product.setDescription(request.getProduct().getDescription());
-        product.setStockQuantity(request.getProduct().getStockQuantity());
-        product.setUpdatedAt(request.getProduct().getUpdatedAt());
-
-        // Set the Product in the OrderItem
         orderItem.setProduct(product);
         orderItem.setQuantity(request.getOrderItem().getQuantity());
         orderItem.setOrder(request.getOrder());
