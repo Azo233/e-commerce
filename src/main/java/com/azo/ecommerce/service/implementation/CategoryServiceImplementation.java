@@ -53,7 +53,6 @@ public class CategoryServiceImplementation implements CategoryService {
 
     @Override
     public Category getCategoryByName(String categoryName) {
-
         return categoryRepository.findByName(categoryName);
     }
 }

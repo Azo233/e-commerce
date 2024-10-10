@@ -43,5 +43,10 @@ public class CategoryController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/getCategoryByName")
+    public Optional<Category> getCategoryName(@RequestParam String categoryName) {
+        return Optional.ofNullable(categoryService.getCategoryByName(categoryName));
+    }
+
 
 }
