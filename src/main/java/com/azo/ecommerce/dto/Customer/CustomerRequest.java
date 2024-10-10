@@ -1,4 +1,4 @@
-package com.azo.ecommerce.dto.CustomerRequset;
+package com.azo.ecommerce.dto.Customer;
 
 import com.azo.ecommerce.model.Customer;
 

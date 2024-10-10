@@ -1,4 +1,4 @@
-package com.azo.ecommerce.dto.OrderRequest;
+package com.azo.ecommerce.dto.Order;
 
 import com.azo.ecommerce.model.Order;
 
