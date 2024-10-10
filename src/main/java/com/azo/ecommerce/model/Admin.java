@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "admin_id")
     private Long adminId;
 
     private String username;

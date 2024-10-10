@@ -24,8 +24,7 @@ public class AdminServiceImplementation implements AdminService {
 
     @Override
     public Optional<Admin> getAdminById(Long adminId) {
-        return Optional.ofNullable(adminRepository.findById(adminId)
-                .orElseThrow(() -> new IllegalArgumentException("Admin not found with ID: " + adminId)));
+        return adminRepository.findById(adminId); // No need to wrap with Optional again
     }
 
     @Override
