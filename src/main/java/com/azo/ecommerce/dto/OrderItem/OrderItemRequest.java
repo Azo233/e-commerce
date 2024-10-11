@@ -10,10 +10,10 @@ import java.math.BigDecimal;
 public class OrderItemRequest {
 
         private Long orderItemId;
-        private Long orderId;       // The ID of the associated order
-        private Long productId;     // The ID of the product
-        private int quantity;       // The quantity of the product
-        private BigDecimal priceAtPurchase;  // Price at the time of purchase
+        private Long orderId;       
+        private Long productId;     
+        private int quantity;       
+        private BigDecimal priceAtPurchase;  
 
         public OrderItemRequest() {
         }
