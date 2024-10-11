@@ -1,36 +1,33 @@
 package com.azo.ecommerce.service.implementation;
 
 import com.azo.ecommerce.dto.OrderItem.OrderItemRequest;
-import com.azo.ecommerce.model.Category;
 import com.azo.ecommerce.model.OrderItem;
 import com.azo.ecommerce.model.Product;
+import com.azo.ecommerce.model.Order;
 import com.azo.ecommerce.repository.OrderItemRepository;
+import com.azo.ecommerce.repository.OrderRepository;
+import com.azo.ecommerce.repository.ProductsRepository;
 import com.azo.ecommerce.service.OrderItemService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OrderItemServiceImplementation implements OrderItemService {
 
     private final OrderItemRepository orderItemRepository;
+    private final ProductsRepository productsRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public OrderItemServiceImplementation(OrderItemRepository orderItemRepository) {
+    public OrderItemServiceImplementation(OrderItemRepository orderItemRepository, ProductsRepository productsRepository, OrderRepository orderRepository) {
         this.orderItemRepository = orderItemRepository;
+        this.productsRepository = productsRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -45,38 +42,44 @@ public class OrderItemServiceImplementation implements OrderItemService {
 
     @Override
     public OrderItem createOrderItem(OrderItemRequest request) {
-        OrderItem orderItem = new OrderItem();
-        Category category = request.getCategory();
-        Product product = request.getProduct();
+        Product product = productsRepository.findById(request.getProductId())
+                .orElseThrow(() -> new IllegalArgumentException("Product not found with ID: " + request.getProductId()));
 
+       Order order = orderRepository.findById(request.getOrderId())
+                .orElseThrow(() -> new IllegalArgumentException("Order not found with ID: " + request.getOrderId()));
+
+        OrderItem orderItem = new OrderItem();
         orderItem.setProduct(product);
-        orderItem.setQuantity(request.getOrderItem().getQuantity());
-        orderItem.setOrder(request.getOrder());
-        orderItem.setCreatedAt(request.getOrderItem().getCreatedAt());
-        orderItem.setOrderItemId(request.getOrderItem().getOrderItemId());
-        orderItem.setPriceAtPurchase(request.getOrderItem().getPriceAtPurchase());
+        orderItem.setOrder(order);
+        orderItem.setQuantity(request.getQuantity());
+        orderItem.setPriceAtPurchase(request.getPriceAtPurchase());
+        orderItem.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
         return orderItemRepository.save(orderItem);
     }
 
     @Override
     public Optional<OrderItem> updateOrderItem(OrderItemRequest request) {
-        if (!orderItemRepository.existsById(request.getOrderItem().getOrderItemId())) {
-            throw new IllegalArgumentException("OrderItem does not exist with ID: " + request.getOrderItem().getOrderItemId());
+        if (!orderItemRepository.existsById(request.getOrderItemId())) {
+            throw new IllegalArgumentException("OrderItem does not exist with ID: " + request.getOrderItemId());
         }
-        OrderItem existingOrderItem = orderItemRepository.findById(request.getOrderItem().getOrderItemId())
-                .orElseThrow(() -> new IllegalArgumentException("OrderItem not found with ID: " + request.getOrderItem().getOrderItemId()));
 
-        existingOrderItem.setQuantity(request.getOrderItem().getQuantity());
-        existingOrderItem.setPriceAtPurchase(request.getOrderItem().getPriceAtPurchase());
+        OrderItem existingOrderItem = orderItemRepository.findById(request.getOrderItemId())
+                .orElseThrow(() -> new IllegalArgumentException("OrderItem not found with ID: " + request.getOrderItemId()));
 
-        Product product = existingOrderItem.getProduct();
-        if (product != null) {
-            product.setName(request.getProduct().getName());
-            product.setDescription(request.getProduct().getDescription());
-            product.setPrice(request.getProduct().getPrice());
-            product.setStockQuantity(request.getProduct().getStockQuantity());
-            product.setUpdatedAt(request.getProduct().getUpdatedAt());
+        existingOrderItem.setQuantity(request.getQuantity());
+        existingOrderItem.setPriceAtPurchase(request.getPriceAtPurchase());
+
+        if (request.getProductId() != null) {
+            Product product = productsRepository.findById(request.getProductId())
+                    .orElseThrow(() -> new IllegalArgumentException("Product not found with ID: " + request.getProductId()));
+            existingOrderItem.setProduct(product);
+        }
+
+        if (request.getOrderId() != null) {
+            Order order = orderRepository.findById(request.getOrderId())
+                    .orElseThrow(() -> new IllegalArgumentException("Order not found with ID: " + request.getOrderId()));
+            existingOrderItem.setOrder(order);
         }
 
         return Optional.of(orderItemRepository.save(existingOrderItem));

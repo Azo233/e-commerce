@@ -13,7 +13,7 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name = "cart_id", nullable = false)
-    private ShoppingCart cart; // Ensure this links to the correct ShoppingCart entity
+    private ShoppingCart cart;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)

@@ -5,52 +5,64 @@ import com.azo.ecommerce.model.Order;
 import com.azo.ecommerce.model.OrderItem;
 import com.azo.ecommerce.model.Product;
 
+import java.math.BigDecimal;
+
 public class OrderItemRequest {
-    private OrderItem orderItem;
-    private Product product;
-    private Order order;
 
-    private Category category;
+        private Long orderItemId;
+        private Long orderId;       // The ID of the associated order
+        private Long productId;     // The ID of the product
+        private int quantity;       // The quantity of the product
+        private BigDecimal priceAtPurchase;  // Price at the time of purchase
 
-    public OrderItemRequest() {
+        public OrderItemRequest() {
+        }
+
+    public OrderItemRequest(Long orderItemId, Long orderId, Long productId, int quantity, BigDecimal priceAtPurchase) {
+        this.orderItemId = orderItemId;
+        this.orderId = orderId;
+        this.productId = productId;
+        this.quantity = quantity;
+        this.priceAtPurchase = priceAtPurchase;
     }
 
-    public OrderItemRequest(OrderItem orderItem, Product product, Order order, Category category) {
-        this.orderItem = orderItem;
-        this.product = product;
-        this.order = order;
-        this.category = category;
+    public Long getOrderItemId() {
+        return orderItemId;
     }
 
-    public OrderItem getOrderItem() {
-        return orderItem;
+    public void setOrderItemId(Long orderItemId) {
+        this.orderItemId = orderItemId;
     }
 
-    public void setOrderItem(OrderItem orderItem) {
-        this.orderItem = orderItem;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public Product getProduct() {
-        return product;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public Long getProductId() {
+        return productId;
     }
 
-    public Order getOrder() {
-        return order;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public Category getCategory() {
-        return category;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public BigDecimal getPriceAtPurchase() {
+        return priceAtPurchase;
+    }
+
+    public void setPriceAtPurchase(BigDecimal priceAtPurchase) {
+        this.priceAtPurchase = priceAtPurchase;
     }
 }

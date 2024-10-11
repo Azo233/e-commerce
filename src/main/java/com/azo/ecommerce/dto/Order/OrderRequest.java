@@ -5,15 +5,14 @@ import com.azo.ecommerce.model.Order;
 
 public class OrderRequest {
     private Order order;
-
-    private Customer customer;
+    private Long customerId;
 
     public OrderRequest() {
     }
 
-    public OrderRequest(Order order, Customer customer) {
+    public OrderRequest(Order order, Long customerId) {
         this.order = order;
-        this.customer = customer;
+        this.customerId = customerId;
     }
 
     public Order getOrder() {
@@ -24,11 +23,12 @@ public class OrderRequest {
         this.order = order;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 }
+

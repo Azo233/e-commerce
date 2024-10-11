@@ -11,11 +11,9 @@ public class Customer {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long customerId;
-
         private String firstName;
         private String lastName;
         private String email;
-
         private String passwordHash;
         private String phoneNumber;
         private String address;
@@ -23,7 +21,6 @@ public class Customer {
         private String state;
         private String zipCode;
         private String country;
-
         @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
         private Timestamp createdAt;
 

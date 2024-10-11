@@ -4,30 +4,50 @@ import com.azo.ecommerce.model.CartItem;
 import com.azo.ecommerce.model.Product;
 
 public class CartItemRequest {
-    private CartItem cartItem;
-    private Product product;
 
+    private Long cartItemId;
+    private Long productId;  // Just the product ID
+    private Long cartId;     // Just the cart ID
+    private int quantity;
     public CartItemRequest() {
     }
 
-    public CartItemRequest(CartItem cartItem, Product product) {
-        this.cartItem = cartItem;
-        this.product = product;
+    public CartItemRequest(Long cartItemId, Long productId, Long cartId, int quantity) {
+        this.cartItemId = cartItemId;
+        this.productId = productId;
+        this.cartId = cartId;
+        this.quantity = quantity;
     }
 
-    public CartItem getCartItem() {
-        return cartItem;
+    public Long getCartItemId() {
+        return cartItemId;
     }
 
-    public void setCartItem(CartItem cartItem) {
-        this.cartItem = cartItem;
+    public void setCartItemId(Long cartItemId) {
+        this.cartItemId = cartItemId;
     }
 
-    public Product getProduct() {
-        return product;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public Long getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

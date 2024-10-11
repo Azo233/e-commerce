@@ -32,26 +32,21 @@ public class OrderItemController {
         return orderItem.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
     @PostMapping("/createOrderItem")
     public ResponseEntity<OrderItem> createOrderItem(@RequestBody OrderItemRequest request) {
         OrderItem createdOrderItem = orderItemService.createOrderItem(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdOrderItem);
     }
-
     @PutMapping("/updateOrderItem")
     public ResponseEntity<OrderItem> updateOrderItem(@RequestBody OrderItemRequest request) {
         Optional<OrderItem> updatedOrderItem = orderItemService.updateOrderItem(request);
         return updatedOrderItem.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
     @DeleteMapping("/deleteOrderItem")
     public ResponseEntity<Void> deleteOrderItem(@RequestParam Long orderItemId) {
         orderItemService.deleteOrderItem(orderItemId);
         return ResponseEntity.noContent().build();
     }
-
-    // Additional methods can be added here for more specific queries, if needed
 }
 

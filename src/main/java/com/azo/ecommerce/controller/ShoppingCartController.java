@@ -18,32 +18,32 @@ public class ShoppingCartController {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAllShoppingCarts")
     public List<ShoppingCart> getAllShoppingCarts() {
         return shoppingCartService.getShoppingCart();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getShoppingCartById")
     public ResponseEntity<ShoppingCart> getShoppingCartById(@PathVariable Long id) {
         Optional<ShoppingCart> shoppingCart = shoppingCartService.getShoppingCartById(id);
         return shoppingCart.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/create")
+    @PostMapping("/createShoppingCart")
     public ResponseEntity<ShoppingCart> createShoppingCart(@RequestBody ShoppingCartRequest request) {
         ShoppingCart createdCart = shoppingCartService.createShoppingCart(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCart);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/updateShoppingCart")
     public ResponseEntity<ShoppingCart> updateShoppingCart(@RequestBody ShoppingCartRequest request) {
         Optional<ShoppingCart> updatedCart = shoppingCartService.updateShoppingCart(request);
         return updatedCart.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteShoppingCart")
     public ResponseEntity<Void> deleteShoppingCart(@PathVariable Long id) {
         shoppingCartService.deleteProduct(id);
         return ResponseEntity.noContent().build();
