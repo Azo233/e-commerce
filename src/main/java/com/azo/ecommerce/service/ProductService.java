@@ -1,8 +1,6 @@
 package com.azo.ecommerce.service;
 
-import com.azo.ecommerce.dto.Products.ProductsRequest;
-import com.azo.ecommerce.dto.categoy.CategoryRequest;
-import com.azo.ecommerce.model.Category;
+import com.azo.ecommerce.dto.products.ProductsRequest;
 import com.azo.ecommerce.model.Product;
 
 import java.util.List;

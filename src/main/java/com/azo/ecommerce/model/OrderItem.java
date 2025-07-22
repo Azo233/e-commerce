@@ -1,6 +1,7 @@
 package com.azo.ecommerce.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -26,7 +27,8 @@ public class OrderItem {
     @Column(name = "price_at_purchase", nullable = false)
     private BigDecimal priceAtPurchase;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "updated_at")
+    @UpdateTimestamp
     private Timestamp createdAt;
 
     public Long getOrderItemId() {

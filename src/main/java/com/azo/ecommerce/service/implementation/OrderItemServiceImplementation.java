@@ -1,6 +1,6 @@
 package com.azo.ecommerce.service.implementation;
 
-import com.azo.ecommerce.dto.OrderItem.OrderItemRequest;
+import com.azo.ecommerce.dto.orderItem.OrderItemRequest;
 import com.azo.ecommerce.model.OrderItem;
 import com.azo.ecommerce.model.Product;
 import com.azo.ecommerce.model.Order;

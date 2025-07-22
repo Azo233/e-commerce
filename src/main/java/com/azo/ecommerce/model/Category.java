@@ -1,6 +1,8 @@
 package com.azo.ecommerce.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.sql.Timestamp;
 
 @Entity
@@ -14,7 +16,8 @@ public class Category {
     private String name;
     private String description;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "updated_at")
+    @UpdateTimestamp
     private Timestamp createdAt;
 
     public Long getCategoryId() {

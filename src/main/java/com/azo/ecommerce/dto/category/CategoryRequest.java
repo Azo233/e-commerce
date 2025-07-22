@@ -1,9 +1,6 @@
-package com.azo.ecommerce.dto.categoy;
+package com.azo.ecommerce.dto.category;
 
 import com.azo.ecommerce.model.Category;
-import jakarta.persistence.Column;
-
-import java.sql.Timestamp;
 
 public class CategoryRequest {
     private Category category;

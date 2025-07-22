@@ -1,7 +1,6 @@
 package com.azo.ecommerce.controller;
 
-import com.azo.ecommerce.dto.categoy.CategoryRequest;
-import com.azo.ecommerce.model.Admin;
+import com.azo.ecommerce.dto.category.CategoryRequest;
 import com.azo.ecommerce.model.Category;
 import com.azo.ecommerce.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

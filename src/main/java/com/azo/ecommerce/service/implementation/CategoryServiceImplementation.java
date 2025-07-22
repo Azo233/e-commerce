@@ -1,6 +1,6 @@
 package com.azo.ecommerce.service.implementation;
 
-import com.azo.ecommerce.dto.categoy.CategoryRequest;
+import com.azo.ecommerce.dto.category.CategoryRequest;
 import com.azo.ecommerce.model.Category;
 import com.azo.ecommerce.repository.CategoryRepository;
 import com.azo.ecommerce.service.CategoryService;

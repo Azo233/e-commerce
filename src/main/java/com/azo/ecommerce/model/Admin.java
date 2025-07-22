@@ -1,24 +1,26 @@
 package com.azo.ecommerce.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "Admins")
 public class Admin {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "admin_id")
-    private Long adminId;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "admin_id")
+        private Long adminId;
 
-    private String username;
-    private String passwordHash;
-    private String email;
-    private String role;
+        private String username;
+        private String passwordHash;
+        private String email;
+        private String role;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Timestamp createdAt;
+        @Column(name = "created_at")
+        @CreationTimestamp
+        private Timestamp createdAt;
 
     public Long getAdminId() {
         return adminId;

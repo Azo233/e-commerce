@@ -1,6 +1,6 @@
 package com.azo.ecommerce.service;
 
-import com.azo.ecommerce.dto.OrderItem.OrderItemRequest;
+import com.azo.ecommerce.dto.orderItem.OrderItemRequest;
 import com.azo.ecommerce.model.OrderItem;
 
 import java.util.List;

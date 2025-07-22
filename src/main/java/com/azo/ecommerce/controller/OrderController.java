@@ -1,6 +1,6 @@
 package com.azo.ecommerce.controller;
 
-import com.azo.ecommerce.dto.Order.OrderRequest;
+import com.azo.ecommerce.dto.order.OrderRequest;
 import com.azo.ecommerce.model.Order;
 import com.azo.ecommerce.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;

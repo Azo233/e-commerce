@@ -1,9 +1,4 @@
-package com.azo.ecommerce.dto.OrderItem;
-
-import com.azo.ecommerce.model.Category;
-import com.azo.ecommerce.model.Order;
-import com.azo.ecommerce.model.OrderItem;
-import com.azo.ecommerce.model.Product;
+package com.azo.ecommerce.dto.orderItem;
 
 import java.math.BigDecimal;
 
