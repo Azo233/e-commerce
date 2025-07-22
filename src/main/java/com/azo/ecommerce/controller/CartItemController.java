@@ -1,6 +1,6 @@
 package com.azo.ecommerce.controller;
 
-import com.azo.ecommerce.dto.CartItem.CartItemRequest;
+import com.azo.ecommerce.dto.cartItem.CartItemRequest;
 import com.azo.ecommerce.model.CartItem;
 import com.azo.ecommerce.service.CartItemService;
 import org.springframework.beans.factory.annotation.Autowired;

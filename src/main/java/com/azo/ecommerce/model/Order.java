@@ -1,6 +1,7 @@
 package com.azo.ecommerce.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -14,7 +15,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
-    @Column(name = "order_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "updated_at")
+    @UpdateTimestamp
     private Timestamp orderDate;
 
     private BigDecimal totalAmount;

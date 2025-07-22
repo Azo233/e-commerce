@@ -1,6 +1,6 @@
 package com.azo.ecommerce.service.implementation;
 
-import com.azo.ecommerce.dto.ShoppingCart.ShoppingCartRequest;
+import com.azo.ecommerce.dto.shoppingCart.ShoppingCartRequest;
 import com.azo.ecommerce.model.Customer;
 import com.azo.ecommerce.model.ShoppingCart;
 import com.azo.ecommerce.repository.CustomerRepository;

@@ -1,6 +1,6 @@
 package com.azo.ecommerce.controller;
 
-import com.azo.ecommerce.dto.ShoppingCart.ShoppingCartRequest;
+import com.azo.ecommerce.dto.shoppingCart.ShoppingCartRequest;
 import com.azo.ecommerce.model.ShoppingCart;
 import com.azo.ecommerce.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;

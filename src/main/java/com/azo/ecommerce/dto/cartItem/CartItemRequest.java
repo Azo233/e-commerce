@@ -1,7 +1,4 @@
-package com.azo.ecommerce.dto.CartItem;
-
-import com.azo.ecommerce.model.CartItem;
-import com.azo.ecommerce.model.Product;
+package com.azo.ecommerce.dto.cartItem;
 
 public class CartItemRequest {
 

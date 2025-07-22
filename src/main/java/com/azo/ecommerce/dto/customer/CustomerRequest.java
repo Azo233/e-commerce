@@ -1,4 +1,4 @@
-package com.azo.ecommerce.dto.Customer;
+package com.azo.ecommerce.dto.customer;
 
 import com.azo.ecommerce.model.Customer;
 

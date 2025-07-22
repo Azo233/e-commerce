@@ -1,4 +1,4 @@
-package com.azo.ecommerce.dto.Products;
+package com.azo.ecommerce.dto.products;
 
 import com.azo.ecommerce.model.Product;
 

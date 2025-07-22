@@ -1,6 +1,7 @@
 package com.azo.ecommerce.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -21,7 +22,8 @@ public class Customer {
         private String state;
         private String zipCode;
         private String country;
-        @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+        @Column(name = "updated_at")
+        @UpdateTimestamp
         private Timestamp createdAt;
 
     public Long getCustomerId() {

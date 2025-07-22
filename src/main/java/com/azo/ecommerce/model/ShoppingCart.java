@@ -1,6 +1,7 @@
 package com.azo.ecommerce.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
@@ -14,7 +15,8 @@ public class ShoppingCart {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
     private String status;
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "updated_at")
+    @UpdateTimestamp
     private Timestamp createdAt;
 
     public Long getCartId() {

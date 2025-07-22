@@ -2,6 +2,7 @@ package com.azo.ecommerce.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
@@ -22,8 +23,8 @@ public class CartItem {
 
     private int quantity;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    @CreationTimestamp  // This handles the default timestamp automatically
+    @Column(name = "updated_at")
+    @UpdateTimestamp
     private Timestamp createdAt;
 
 

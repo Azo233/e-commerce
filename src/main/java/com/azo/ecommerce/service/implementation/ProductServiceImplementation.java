@@ -1,6 +1,6 @@
 package com.azo.ecommerce.service.implementation;
 
-import com.azo.ecommerce.dto.Products.ProductsRequest;
+import com.azo.ecommerce.dto.products.ProductsRequest;
 import com.azo.ecommerce.model.Product;
 import com.azo.ecommerce.repository.ProductsRepository;
 import com.azo.ecommerce.service.ProductService;

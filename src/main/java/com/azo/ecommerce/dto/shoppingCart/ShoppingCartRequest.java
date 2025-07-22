@@ -1,4 +1,4 @@
-package com.azo.ecommerce.dto.ShoppingCart;
+package com.azo.ecommerce.dto.shoppingCart;
 
 import com.azo.ecommerce.model.Customer;
 import com.azo.ecommerce.model.ShoppingCart;

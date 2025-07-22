@@ -1,6 +1,6 @@
 package com.azo.ecommerce.service;
 
-import com.azo.ecommerce.dto.ShoppingCart.ShoppingCartRequest;
+import com.azo.ecommerce.dto.shoppingCart.ShoppingCartRequest;
 import com.azo.ecommerce.model.ShoppingCart;
 
 import java.util.List;

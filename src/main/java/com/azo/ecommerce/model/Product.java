@@ -1,6 +1,8 @@
 package com.azo.ecommerce.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -12,6 +14,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_Id")
     private Long productId;
+
     private String name;
     private String description;
     private BigDecimal price;
@@ -23,11 +26,13 @@ public class Product {
     @Column(name = "stock_quantity")
     private int stockQuantity;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at")
+    @CreationTimestamp
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private Timestamp updatedAt;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Timestamp updatedAt;;
 
     public Long getProductId() {
         return productId;
