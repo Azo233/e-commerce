@@ -3,6 +3,7 @@ package com.azo.ecommerce.controller;
 import com.azo.ecommerce.dto.shoppingCart.ShoppingCartRequest;
 import com.azo.ecommerce.model.ShoppingCart;
 import com.azo.ecommerce.service.ShoppingCartService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("${app.base-url}/shoppingCart")
+@Tag(name = "ShoppingCart")
 public class ShoppingCartController {
 
     @Autowired

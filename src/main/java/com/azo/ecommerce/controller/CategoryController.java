@@ -3,6 +3,7 @@ package com.azo.ecommerce.controller;
 import com.azo.ecommerce.dto.category.CategoryRequest;
 import com.azo.ecommerce.model.Category;
 import com.azo.ecommerce.service.CategoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("${app.base-url}/category")
+@Tag(name = "Category")
 public class CategoryController {
 
     @Autowired

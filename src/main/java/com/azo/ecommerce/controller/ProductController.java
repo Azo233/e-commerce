@@ -3,6 +3,7 @@ package com.azo.ecommerce.controller;
 import com.azo.ecommerce.dto.products.ProductsRequest;
 import com.azo.ecommerce.model.Product;
 import com.azo.ecommerce.service.ProductService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,15 +13,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("${app.base-url}/product")
+@Tag(name = "Products", description = "Product management operations")
 public class ProductController {
 
     @Autowired
     ProductService productService;
 
     @GetMapping("/getAllProducts")
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
-    }
+    public List<Product> getAllProducts() {return productService.getAllProducts();}
 
     @GetMapping("/getProductById")
     public Optional<Product> getProductById(@RequestParam Long productId) {
