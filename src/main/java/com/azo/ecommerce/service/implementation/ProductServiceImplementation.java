@@ -3,6 +3,7 @@ package com.azo.ecommerce.service.implementation;
 import com.azo.ecommerce.dto.products.ProductsRequest;
 import com.azo.ecommerce.model.Product;
 import com.azo.ecommerce.repository.ProductsRepository;
+import com.azo.ecommerce.service.KafkaService.KafkaProducerService;
 import com.azo.ecommerce.service.ProductService;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,11 @@ import java.util.Optional;
 public class ProductServiceImplementation implements ProductService {
 
     private final ProductsRepository productsRepository;
+    private final KafkaProducerService kafkaProducerService;
 
-    public ProductServiceImplementation(ProductsRepository productsRepository) {
+    public ProductServiceImplementation(ProductsRepository productsRepository, KafkaProducerService kafkaProducerService) {
         this.productsRepository = productsRepository;
+        this.kafkaProducerService = kafkaProducerService;
     }
 
     @Override
@@ -30,10 +33,33 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public Product createProduct(ProductsRequest request) {
-        if (request.getProduct().getProductId() != null && productsRepository.existsById(request.getProduct().getProductId())) {
-            throw new IllegalArgumentException("Product already exists with ID: " + request.getProduct().getProductId());
-        }
-        return productsRepository.save(request.getProduct());
+        Product savedProduct = productsRepository.save(request.getProduct());
+
+        String productData = """
+            {
+                "action": "PRODUCT_CREATED",
+                "productId": %d,
+                "name": "%s",
+                "price": %.2f,
+                "stock": %d,
+                "categoryId": %d,
+                "timestamp": "%s"
+            }
+            """.formatted(
+                savedProduct.getProductId(),
+                savedProduct.getName(),
+                savedProduct.getPrice(),
+                savedProduct.getStockQuantity(),
+                savedProduct.getCategory().getCategoryId(),
+                java.time.Instant.now()
+        );
+        kafkaProducerService.sendInventoryUpdate(productData);
+
+        String auditData = "User created product: " + savedProduct.getName() +
+                " (ID: " + savedProduct.getProductId() + ")";
+        kafkaProducerService.sendAuditLog(auditData);
+
+        return savedProduct;
     }
 
     @Override

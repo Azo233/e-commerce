@@ -3,6 +3,7 @@ package com.azo.ecommerce.controller;
 import com.azo.ecommerce.dto.orderItem.OrderItemRequest;
 import com.azo.ecommerce.model.OrderItem;
 import com.azo.ecommerce.service.OrderItemService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("${app.base-url}/orderItem")
+@Tag(name = "OrderItem")
 public class OrderItemController {
 
     @Autowired
