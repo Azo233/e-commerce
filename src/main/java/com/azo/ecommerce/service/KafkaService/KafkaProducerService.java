@@ -36,15 +36,15 @@ public class KafkaProducerService {
             kafkaTemplate.send(topic, data)
                     .whenComplete((result, ex) -> {
                         if (ex == null) {
-                            logger.info("✅ {} sent successfully to topic '{}': {}",
+                            logger.info("{} sent successfully to topic '{}': {}",
                                     messageType, topic, data);
                         } else {
-                            logger.error("❌ Failed to send {} to topic '{}': {}",
+                            logger.error("Failed to send {} to topic '{}': {}",
                                     messageType, topic, ex.getMessage());
                         }
                     });
         } catch (Exception e) {
-            logger.error("❌ Exception while sending {} to topic '{}': {}",
+            logger.error("Exception while sending {} to topic '{}': {}",
                     messageType, topic, e.getMessage(), e);
         }
     }

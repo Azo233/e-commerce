@@ -26,6 +26,24 @@ public class Customer {
         @UpdateTimestamp
         private Timestamp createdAt;
 
+    public Customer(Long customerId, String firstName, String lastName, String email, String passwordHash, String phoneNumber, String address, String city, String state, String zipCode, String country, Timestamp createdAt) {
+        this.customerId = customerId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.country = country;
+        this.createdAt = createdAt;
+    }
+
+    public Customer() {
+    }
+
     public Long getCustomerId() {
         return customerId;
     }

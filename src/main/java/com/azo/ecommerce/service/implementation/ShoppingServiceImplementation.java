@@ -5,6 +5,7 @@ import com.azo.ecommerce.model.Customer;
 import com.azo.ecommerce.model.ShoppingCart;
 import com.azo.ecommerce.repository.CustomerRepository;
 import com.azo.ecommerce.repository.ShoppingCartRepository;
+import com.azo.ecommerce.service.KafkaService.KafkaProducerService;
 import com.azo.ecommerce.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,12 @@ import java.util.Optional;
 public class ShoppingServiceImplementation implements ShoppingCartService {
     private final ShoppingCartRepository shoppingCartRepository;
     private final CustomerRepository customerRepository;
+    private final KafkaProducerService kafkaProducerService;
     @Autowired
-    public ShoppingServiceImplementation(ShoppingCartRepository shoppingCartRepository, CustomerRepository customerRepository) {
+    public ShoppingServiceImplementation(ShoppingCartRepository shoppingCartRepository, CustomerRepository customerRepository, KafkaProducerService kafkaProducerService) {
         this.shoppingCartRepository = shoppingCartRepository;
         this.customerRepository = customerRepository;
+        this.kafkaProducerService = kafkaProducerService;
     }
 
     @Override
@@ -41,6 +44,18 @@ public class ShoppingServiceImplementation implements ShoppingCartService {
         shoppingCart.setCustomer(customer);
         shoppingCart.setCreatedAt(request.getShoppingCart().getCreatedAt());
         shoppingCart.setStatus(request.getShoppingCart().getStatus());
+
+        String cartData = """
+                "action": "PRODUCT_CREATED",
+                "customer": "%s",
+                "createdAt": "%s",
+                "status": "%s"
+                """.formatted(
+                shoppingCart.getCustomer().getFirstName(),
+                shoppingCart.getCreatedAt().getTime(),
+                shoppingCart.getStatus()
+        );
+        kafkaProducerService.sendCustomerNotification(shoppingCart.getCustomer().getFirstName() +"you have added");
 
         return shoppingCartRepository.save(shoppingCart);
     }

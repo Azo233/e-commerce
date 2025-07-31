@@ -8,6 +8,7 @@ import com.azo.ecommerce.repository.CartItemRepository;
 import com.azo.ecommerce.repository.ProductsRepository;
 import com.azo.ecommerce.repository.ShoppingCartRepository;
 import com.azo.ecommerce.service.CartItemService;
+import com.azo.ecommerce.service.KafkaService.KafkaProducerService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,12 +19,14 @@ public class CartItemServiceImplementation implements CartItemService {
 
     private final CartItemRepository cartItemRepository;
     private final ProductsRepository productRepository;
+    private final KafkaProducerService kafkaProducerService;
 
     private final ShoppingCartRepository  shoppingCartRepository;
 
-    public CartItemServiceImplementation(CartItemRepository cartItemRepository, ProductsRepository productRepository, ShoppingCartRepository shoppingCartRepository) {
+    public CartItemServiceImplementation(CartItemRepository cartItemRepository, ProductsRepository productRepository, KafkaProducerService kafkaProducerService, ShoppingCartRepository shoppingCartRepository) {
         this.cartItemRepository = cartItemRepository;
         this.productRepository = productRepository;
+        this.kafkaProducerService = kafkaProducerService;
         this.shoppingCartRepository = shoppingCartRepository;
     }
 
@@ -38,21 +41,16 @@ public class CartItemServiceImplementation implements CartItemService {
     }
 
     public CartItem createCartItem(CartItemRequest request) {
-        // Check if the product exists
         if (!productRepository.existsById(request.getProductId())) {
             throw new IllegalArgumentException("Product does not exist with ID: " + request.getProductId());
         }
-
-        // Check if the cart exists
         if (!shoppingCartRepository.existsById(request.getCartId())) {
             throw new IllegalArgumentException("Shopping Cart does not exist with ID: " + request.getCartId());
         }
 
-        // Create a new CartItem instance
         CartItem cartItem = new CartItem();
         cartItem.setQuantity(request.getQuantity());
 
-        // Set the product and cart using their IDs
         Product product = productRepository.findById(request.getProductId())
                 .orElseThrow(() -> new IllegalArgumentException("Product not found with ID: " + request.getProductId()));
         ShoppingCart cart = shoppingCartRepository.findById(request.getCartId())
@@ -61,6 +59,29 @@ public class CartItemServiceImplementation implements CartItemService {
         cartItem.setProduct(product);
         cartItem.setCart(cart);
 
+        String cartItemData = """
+        {
+          "action": "PRODUCT_CREATED",
+          "productId": %d,
+          "cartId": %d,
+          "cartItemPrice": %.2f,
+          "cartItemQuantity: %d"
+          "product": "%s",
+          "cart": %d
+        }
+        """.formatted(
+                request.getProductId(),
+                request.getCartId(),
+                cartItem.getProduct().getPrice(),
+                cartItem.getQuantity(),
+                cartItem.getProduct().getName(),
+                cart.getCartId()
+        );
+        kafkaProducerService.sendInventoryUpdate(cartItemData);
+
+        String orderData ="You have added " + cartItem.getQuantity() + " of the "+  cartItem.getProduct().getName();
+
+        kafkaProducerService.sendOrderEvent(orderData);
         return cartItemRepository.save(cartItem);
     }
 

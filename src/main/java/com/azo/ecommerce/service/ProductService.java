@@ -19,4 +19,6 @@ public interface ProductService {
     void deleteProduct(Long productId);
 
     Product getProductByName(String productName);
+
+    String getProductNameById(Long productId);
 }

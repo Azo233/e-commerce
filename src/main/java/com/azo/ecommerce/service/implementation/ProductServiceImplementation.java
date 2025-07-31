@@ -64,10 +64,36 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public Optional<Product> updateProduct(ProductsRequest request) {
+        Product updatedProduct =  productsRepository.save(request.getProduct());
+
         if (!productsRepository.existsById(request.getProduct().getProductId())) {
             throw new IllegalArgumentException("Product does not exist with ID: " + request.getProduct().getProductId());
         }
-        return Optional.of(productsRepository.save(request.getProduct()));
+        String productData = """
+                {
+                "action": "PRODUCT_CREATED",
+                "productId": %d,
+                "name": "%s",
+                "price": %.2f,
+                "stock": %d,
+                "categoryId": %d,
+                "timestamp": "%s"
+                }
+                """.formatted(
+                updatedProduct.getProductId(),
+                updatedProduct.getName(),
+                updatedProduct.getPrice(),
+                updatedProduct.getStockQuantity(),
+                updatedProduct.getCategory().getCategoryId(),
+                java.time.Instant.now()
+        );
+        kafkaProducerService.sendInventoryUpdate(productData);
+
+        String auditData = "User updated product " + updatedProduct.getName() +
+                " (ID: " + updatedProduct.getProductId() + ")";
+        kafkaProducerService.sendAuditLog(auditData);
+
+        return Optional.of(updatedProduct);
     }
 
     @Override
@@ -75,12 +101,26 @@ public class ProductServiceImplementation implements ProductService {
         if (!productsRepository.existsById(productId)) {
             throw new IllegalArgumentException("Product does not exist with ID: " + productId);
         }
+        String productData = """
+                "productId": %d
+                """.formatted(
+                        productId
+        );
+        kafkaProducerService.sendInventoryUpdate(productData);
+        String auditData = "User deleted product by ID " + productId;
+        kafkaProducerService.sendAuditLog(auditData);
         productsRepository.deleteById(productId);
     }
 
     @Override
     public Product getProductByName(String productName) {
         return productsRepository.findByName(productName);
+    }
+
+    @Override
+    public String getProductNameById(Long productId) {
+        return String.valueOf(productsRepository.findById(productId)
+        .map(Product::getName));
     }
 }
 
