@@ -79,7 +79,7 @@ public class CartItemServiceImplementation implements CartItemService {
         );
         kafkaProducerService.sendInventoryUpdate(cartItemData);
 
-        String orderData ="You have added " + cartItem.getQuantity() + "of the "+  cartItem.getProduct().getName();
+        String orderData ="You have added " + cartItem.getQuantity() + " of the "+  cartItem.getProduct().getName();
 
         kafkaProducerService.sendOrderEvent(orderData);
         return cartItemRepository.save(cartItem);
